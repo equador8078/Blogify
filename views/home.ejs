@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./partials/head") %>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Homepage</title>
+</head>
+
+<body>
+
+    <%- include('./nav.ejs') %>
+
+    <% if (locals.noBlog) { %>
+        <div style="display: flex;
+        justify-content: center;
+        margin-top: 10%;
+        height: 100vh;">
+            <h1><%= noBlog %></h1>
+        </div>
+    <% } else{%>
+            <div class="row row-cols-4">
+
+                <% blogs.forEach(blog=> { %>
+                    <div class="card col" style="width: 18rem; margin: 3rem;">
+                        <img src="<%= blog.coverImageURL %>" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <figure>
+                                <blockquote class="blockquote">
+                                    <%= blog.title %>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    By <cite title="Source Title"><%= blog.createdBy.fullName %></cite>
+                                </figcaption>
+                            </figure>
+                            <a href='/blog/view/<%= blog._id %>' class="btn btn-primary" >View</a>
+                            <% if (locals.atPortfoliio) { %>
+                                <a href='/blog/edit/<%= blog._id %>' class="btn btn-secondary" >Edit</a>
+                                <a href='/blog/delete/<%= blog._id %>' class="btn btn-danger" >Delete</a>
+                            <% } %>
+                            
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+            <%}%>
+        
+            
+
+        
+
+        <%- include('./partials/head') %>
+</body>
+
+</html>

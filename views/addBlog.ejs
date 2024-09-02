@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./partials/head") %>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Blog</title>
+</head>
+
+<body>
+
+    <%- include('./nav.ejs') %>
+
+        <% if (locals.user) { %>
+            
+            <div class="container mt-4">
+                <form action="/blog/" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="coverImage" class="form-label">Cover Image</label>
+                        <input type="file" class="form-control" id="coverImage" name="coverImage"
+                            aria-describedby="coverImage">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="title" name="title" aria-describedby="title">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Body</label>
+                        <textarea class="form-control" name="body" id="body" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <% } %>
+                <% if (locals.blog) { %>
+                    <div class="container mt-4">
+                        <form action="/blog/editedParams/<%= blog._id %>" method="post" enctype="multipart/form-data">
+
+                            <div class="mb-3">
+                                <label for="image">Choose another image:</label>
+                                <input type="file" class="form-control" id="coverImage" name="coverImage" aria-describedby="coverImage" value="<%= blog.coverImageURL %>">
+                                <% if (blog.coverImageURL) { %>
+                                    <p>Current image:</p>
+                                    <img src="<%= blog.coverImageURL %>" width="200px">
+                                    <input type="hidden" name="existingImage" value="<%= blog.coverImageURL %>">
+                                    <% } %>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="title" name="title" aria-describedby="title"
+                                    value="<%= blog.title %>">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Body</label>
+                                <textarea class="form-control" name="body" id="body"
+                                    rows="3"><%= blog.body %></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                    <% } %>
+
+
+
+                        <%- include('./partials/head') %>
+</body>
+
+</html>
